@@ -55,4 +55,19 @@ submit.onclick = function AddNewProduct()
     productslist.push(newproductobj);
 
     localStorage.setItem('Product',JSON.stringify(productslist));
+
+    clearinputs();
+}
+
+function clearinputs()
+{
+    title.value = '';
+    price.value = '';
+    taxes.value = '';
+    count.value = '';
+    category.value = '';
+    total.innerHTML = '';
+    discount.value = '';
+    ads.value = '';
+
 }
