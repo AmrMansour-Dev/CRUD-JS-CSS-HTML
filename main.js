@@ -57,6 +57,7 @@ submit.onclick = function AddNewProduct()
     localStorage.setItem('Product',JSON.stringify(productslist));
 
     clearinputs();
+
 }
 
 function clearinputs()
@@ -71,3 +72,28 @@ function clearinputs()
     ads.value = '';
 
 }
+
+function showtabledata()
+{
+    let table = '';
+    
+    for(let i = 0; i<productslist.length; i++)
+    {
+        table += 
+        `<tr>
+                <td>${i}</td>
+                <td>${productslist[i].title}</td>
+                <td>${productslist[i].price}</td>
+                <td>${productslist[i].taxes}</td>
+                <td>${productslist[i].ads}</td>
+                <td>${productslist[i].discount}</td>
+                <td>${productslist[i].total}</td>
+                <td>${productslist[i].category}</td>
+                <td><button id="update">Update</button></td>
+                <td><button id="delete">Delete</button></td>
+                </tr>`
+    }
+    document.getElementById('tbody').innerHTML = table;
+}
+
+showtabledata();
