@@ -94,6 +94,16 @@ function showtabledata()
                 </tr>`
     }
     document.getElementById('tbody').innerHTML = table;
+    let deleteallbtn = document.getElementById('deleteall');
+
+    if(productslist.length > 0)
+    {
+        deleteallbtn.innerHTML = '<button onclick = "deleteallproducts()">Delete All</button>'
+    }
+    else
+    {
+        deleteallbtn.innerHTML = ''
+    }
 }
 
 showtabledata();
@@ -102,5 +112,12 @@ function deleteproduct(i)
 {
     productslist.splice(i,1);
     localStorage.setItem('Product',JSON.stringify(productslist));
+    showtabledata();
+}
+
+function deleteallproducts()
+{
+    productslist.splice(0);
+    localStorage.clear();
     showtabledata();
 }

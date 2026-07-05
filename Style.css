@@ -94,3 +94,13 @@ th,td
 {
     padding: 5px;
 }
+
+#deleteall
+{
+    margin: 20px 0;
+    transition: 0.5s;
+}
+#deleteall :hover
+{
+    background-color: red;
+}
