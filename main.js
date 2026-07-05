@@ -57,7 +57,7 @@ submit.onclick = function AddNewProduct()
     localStorage.setItem('Product',JSON.stringify(productslist));
 
     clearinputs();
-
+    showtabledata();
 }
 
 function clearinputs()
@@ -90,10 +90,17 @@ function showtabledata()
                 <td>${productslist[i].total}</td>
                 <td>${productslist[i].category}</td>
                 <td><button id="update">Update</button></td>
-                <td><button id="delete">Delete</button></td>
+                <td><button onclick = "deleteproduct(${i})" id="delete">Delete</button></td>
                 </tr>`
     }
     document.getElementById('tbody').innerHTML = table;
 }
 
 showtabledata();
+
+function deleteproduct(i)
+{
+    productslist.splice(i,1);
+    localStorage.setItem('Product',JSON.stringify(productslist));
+    showtabledata();
+}
