@@ -6,6 +6,9 @@ let Ads = document.getElementById('ads');
 let Discount = document.getElementById('discount');
 let Total = document.getElementById('total');
 
+let mode = 'create';
+let temp;
+
 function GetTotalPrice()
 {
     if(Price.value != '')
@@ -38,9 +41,9 @@ else
 }
 
 
-submit.onclick = function AddNewProduct()
+submit.onclick = function()
 {
-    let newproductobj =
+    let productobj =
     {
         title:title.value,
         price:price.value,
@@ -52,7 +55,29 @@ submit.onclick = function AddNewProduct()
         category:category.value
     }
 
-    productslist.push(newproductobj);
+    if(mode == 'create')
+    {
+        if(productobj.count > 0)
+        {
+            for(let i = 0; i < productobj.count; i++)
+            {
+            productslist.push(productobj);
+            }
+        }
+        else
+        {
+            productslist.push(productobj);
+        }
+    }
+    else
+    {
+        productslist[temp] = productobj;
+        mode = 'create';
+        submit.innerHTML = 'Create';
+        count.style.display ='block'
+    }
+
+
 
     localStorage.setItem('Product',JSON.stringify(productslist));
 
@@ -75,6 +100,8 @@ function clearinputs()
 
 function showtabledata()
 {
+    GetTotalPrice();
+    
     let table = '';
     
     for(let i = 0; i<productslist.length; i++)
@@ -89,7 +116,7 @@ function showtabledata()
                 <td>${productslist[i].discount}</td>
                 <td>${productslist[i].total}</td>
                 <td>${productslist[i].category}</td>
-                <td><button id="update">Update</button></td>
+                <td><button onclick = "update(${i})" id="update">Update</button></td>
                 <td><button onclick = "deleteproduct(${i})" id="delete">Delete</button></td>
                 </tr>`
     }
@@ -98,7 +125,7 @@ function showtabledata()
 
     if(productslist.length > 0)
     {
-        deleteallbtn.innerHTML = '<button onclick = "deleteallproducts()">Delete All</button>'
+        deleteallbtn.innerHTML = `<button onclick = "deleteallproducts()">Delete All (${productslist.length})</button>`
     }
     else
     {
@@ -120,4 +147,22 @@ function deleteallproducts()
     productslist.splice(0);
     localStorage.clear();
     showtabledata();
+}
+
+let title = document.getElementById('title');
+
+function update(i)
+{
+    title.value = productslist[i].title;
+    price.value = productslist[i].price;
+    Taxes.value = productslist[i].taxes;
+    Ads.value = productslist[i].ads;
+    Discount.value = productslist[i].discount;
+    count.style.display = 'none'
+    category.value = productslist[i].category;
+    submit.innerHTML = 'Update';
+    temp = i;
+    mode = 'update'
+    GetTotalPrice();
+    
 }
