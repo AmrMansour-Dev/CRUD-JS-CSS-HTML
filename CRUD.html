@@ -25,10 +25,10 @@
         <button id="submit">Create</button>
         </div>
         <div class="searchblock">
-            <input id="searchbox" type="text" placeholder="Search">
+            <input onkeyup="SearchTable(this.value)" id="searchbox" type="text" placeholder="Search">
             <div class="searchbuttons">
-                <button id="SearchName">Search By Name</button>
-                <button id="SearchTitle">Search By Category</button>
+                <button onclick="GetSearchMode(this.id)" id="SearchByTitle">Search By Title</button>
+                <button onclick="GetSearchMode(this.id)" id="SearchByCategory">Search By Category</button>
             </div>
         </div>
         <div id="deleteall">
